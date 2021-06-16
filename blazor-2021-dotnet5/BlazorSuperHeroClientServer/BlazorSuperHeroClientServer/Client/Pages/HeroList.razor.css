@@ -1,0 +1,14 @@
+﻿.hero-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+
+.hero-table {
+    width: 100%;
+}
+
+.search-box {
+    width: 80%;
+    margin: 20px auto;
+    background-color: white;
+}

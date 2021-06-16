@@ -1,0 +1,23 @@
+﻿@page "/"
+@using BlazorSuperHeroClientServer.Shared
+@using System.Threading
+@inject HttpClient Http
+
+<h3>Heros</h3>
+@if (heros == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <HeroList Heros="heros" />
+}
+
+@code {
+    private Hero[] heros;
+
+    protected override async Task OnInitializedAsync()
+    {
+        heros = await Http.GetFromJsonAsync<Hero[]>("SuperHero");
+    }
+}

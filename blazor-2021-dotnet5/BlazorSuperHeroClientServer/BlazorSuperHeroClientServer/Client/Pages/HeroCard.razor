@@ -1,0 +1,18 @@
+﻿@using BlazorSuperHeroClientServer.Shared
+
+<div class="card">
+    <img src="@SuperHero.images.sm" alt="Avatar" class="avatar">
+    <div class="container">
+        <h4><b>@SuperHero.name</b></h4>
+        <p>
+            <b>Alter Egos:</b>@SuperHero.biography.alterEgos<br/>
+            @SuperHero.biography.placeOfBirth
+            @SuperHero.appearance.height
+        </p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Hero SuperHero { get; set; }
+}

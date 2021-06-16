@@ -1,0 +1,32 @@
+﻿@page "/browserstorage"
+@inject ProtectedLocalStorage storage
+@inject ProtectedSessionStorage session
+
+<h3>BrowserStorage</h3>
+
+<p>Local Storage count: @localCount</p>
+<p>Session Storage count: @sessionCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int localCount = 0;
+    private int sessionCount = 0;
+
+    protected override async Task OnInitializedAsync()
+    { 
+        var localResult = await storage.GetAsync<int>("LOCAL");
+        localCount = localResult.Success ? localResult.Value : 0;
+
+        var sessionResult = await session.GetAsync<int>("SESSION");
+        sessionCount = sessionResult.Success ? sessionResult.Value : 0;
+    }
+
+    private async Task IncrementCount()
+    {
+        localCount++;
+        sessionCount++;
+        await storage.SetAsync("LOCAL", localCount);
+        await session.SetAsync("SESSION", sessionCount);
+    }
+}

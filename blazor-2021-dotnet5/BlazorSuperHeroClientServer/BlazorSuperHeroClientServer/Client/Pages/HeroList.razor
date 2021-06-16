@@ -1,0 +1,26 @@
+﻿@using BlazorSuperHeroClientServer.Shared
+
+<div class="row search-container">
+    <input autofocus @bind="SearchTerm"
+           class="form-control search-box"
+           placeholder="search"
+           @bind:event="oninput"/>
+</div>
+<div class="hero-container">
+    @foreach (var hero in FilteredHeros)
+    {
+        <HeroCard SuperHero="hero" />
+    }
+</div>
+
+@code {
+    string SearchTerm { get; set; } = "";
+
+    [Parameter]
+    public Hero[] Heros { get; set; }
+
+    List<Hero> FilteredHeros => Heros.Where(x => x.name.ToLower()
+                                   .Contains(SearchTerm.ToLower()))
+                                   .ToList();
+
+    }
