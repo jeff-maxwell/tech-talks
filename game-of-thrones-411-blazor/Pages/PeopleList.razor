@@ -1,0 +1,50 @@
+@page "/people"
+@using game_of_thrones_411_blazor.Service
+@using game_of_thrones_411_blazor.Models
+@inject GOTService PeopleService
+
+<TopMenu/>
+
+@if (people == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="container">
+        <div class="row text-center">
+            <h1 class="title text-center">Characters of GOT</h1>
+        </div>
+        <div class="row search-container">
+            <input autofocus bind-value-oninput=@SearchTerm 
+                   class="form-control search-box" 
+                   placeholder="search" />
+        </div>
+        <div class="characters">
+            <div class="row">
+                <div class="card-deck">
+                    @foreach (var person in filteredPeople)
+                    {
+                        <div class="col-sm-3">
+                            <PeopleCard Person="person" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@functions {
+    List<People> people;
+    string SearchTerm { get; set; } = "";
+
+    List<People> filteredPeople => people.Where(p => p.name.ToLower()
+                                         .Contains(SearchTerm.ToLower()))
+                                         .ToList();
+
+    protected override async Task OnInitAsync()
+    {
+        people = await PeopleService.GetPeopleAsync();
+    }
+}

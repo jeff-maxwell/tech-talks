@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:hotdog" x:Class="hotdog.hotdogPage">
+
+<StackLayout>
+    <Image x:Name="Image1" HeightRequest="240" />
+
+    <Button x:Name="UploadPictureButton"
+        Clicked="UploadPictureButton_Clicked"
+        Text="Select a Photo" />
+
+        
+    <Label x:Name="HotDogStatus" 
+           WidthRequest="1000"
+           HorizontalTextAlignment="Center"
+           HorizontalOptions="CenterAndExpand"
+           FontSize="30"
+           />    
+        
+      <ListView x:Name="PredictionView" HorizontalOptions="Fill">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding Tag}" />
+                        <Label Text="{Binding Probability, StringFormat='{0:P}'}" 
+                               HorizontalOptions="EndAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+        
+</StackLayout>
+</ContentPage>

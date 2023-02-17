@@ -1,0 +1,49 @@
+@page "/person/{Slug}"
+@using game_of_thrones_411_blazor.Service
+@using game_of_thrones_411_blazor.Models
+@inject GOTService PeopleService
+
+<TopMenu/>
+
+@if (Slug == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @if (person != null)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="@person.image" />
+                </div>
+                <div class="col-md-8">
+                    <h1>@person.name</h1>
+                    <br />
+                    <h3>@person.actor</h3>
+                    <br />
+                    <h5>@person.house</h5>
+                    <br />
+                    <h6>Titles:</h6>
+                    @foreach (var title in @person.titles)
+                    {
+                        @title<br />
+                    }
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@functions {
+    [Parameter]
+    public string Slug { get; set; }
+
+    People person;
+
+    protected override async Task OnInitAsync()
+    {
+        person = await PeopleService.GetPersonAsync(Slug);
+    }
+}
