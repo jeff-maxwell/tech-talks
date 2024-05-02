@@ -1,5 +1,4 @@
-# intro-web-dev
-**Introduction to Web Development Presentation**
+# Introduction to Web Development Presentation**
 
 This repository is the reference material for a tech talk I gave on May 6th at [Free Code Camp OKC](http://www.fccokc.com/).
 
